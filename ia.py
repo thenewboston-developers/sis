@@ -14,12 +14,16 @@ def fetch_updated_code_from_openai(current_code):
     client = OpenAI()
 
     completion = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-4o",
+        max_tokens=1024,
         messages=[
-            {"role": "system", "content": "You are a helpful assistant that updates Python code."},
+            {
+                "role": "system",
+                "content": "You are a helpful assistant that updates Python code. Your job is to improve your own source code. Do not include anything in the response aside from the source code itself. As you can see, your response will become the source code for the next iteration."
+            },
             {
                 "role": "user",
-                "content": f"Here is the current code:\n\n{current_code}\n\nPlease update and improve this code."
+                "content": current_code
             }
         ]
     )
