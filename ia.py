@@ -1,7 +1,7 @@
 import os
 import sys
 
-from openai import OpenAI
+from promptlayer import PromptLayer
 
 
 def get_current_code():
@@ -10,25 +10,15 @@ def get_current_code():
         return f.read()
 
 
-def fetch_updated_code_from_openai(current_code):
-    client = OpenAI()
-
-    completion = client.chat.completions.create(
-        model="gpt-4o",
-        max_tokens=1024,
-        messages=[
-            {
-                "role": "system",
-                "content": "You are a helpful assistant that updates Python code. Your job is to improve your own source code. Do not include anything in the response aside from the source code itself. As you can see, your response will become the source code for the next iteration."
-            },
-            {
-                "role": "user",
-                "content": current_code
-            }
-        ]
+def fetch_updated_code(current_code):
+    promptlayer_client = PromptLayer()
+    response = promptlayer_client.run(
+        prompt_name="sis",
+        input_variables={
+            "current_code": current_code
+        }
     )
-
-    return completion.choices[0].message.content
+    return response["raw_response"].choices[0].message.content
 
 
 def update_code(new_code):
@@ -46,8 +36,8 @@ if __name__ == "__main__":
     print("Fetching the current source code...")
     current_code = get_current_code()
 
-    print("Getting updated code from OpenAI...")
-    new_code = fetch_updated_code_from_openai(current_code)
+    print("Getting updated code...")
+    new_code = fetch_updated_code(current_code)
 
     print("Updating the script with the new code...")
     update_code(new_code)
