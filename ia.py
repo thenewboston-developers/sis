@@ -18,7 +18,7 @@ def fetch_updated_code(current_code):
             "current_code": current_code
         }
     )
-    return response["raw_response"].choices[0].message.content
+    return response["prompt_blueprint"]["prompt_template"]["messages"][-1]["content"][0]["text"]
 
 
 def update_code(new_code):
