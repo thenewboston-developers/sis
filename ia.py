@@ -28,7 +28,7 @@ def fetch_updated_code_from_openai(current_code):
         ]
     )
 
-    return completion.choices[0].message['content']
+    return completion.choices[0].message.content
 
 
 def update_code(new_code):
