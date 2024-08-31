@@ -33,7 +33,7 @@ def restart_program():
 
 
 if __name__ == "__main__":
-    print("Fetching the current source code...")
+    print("\nFetching the current source code...")
     current_code = get_current_code()
 
     print("Getting updated code...")
@@ -44,5 +44,3 @@ if __name__ == "__main__":
 
     print("Restarting the updated script...")
     restart_program()
-
-    print("This line will never be executed because the process is replaced.")
