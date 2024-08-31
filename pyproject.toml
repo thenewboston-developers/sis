@@ -11,6 +11,9 @@ python = "^3.11"
 openai = "^1.42.0"
 promptlayer = "^1.0.18"
 anthropic = "^0.34.1"
+psutil = "^6.0.0"
+aiohttp = "^3.10.5"
+numpy = "^2.1.0"
 
 [build-system]
 requires = ["poetry-core"]
